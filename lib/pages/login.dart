@@ -6,8 +6,6 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'home.dart';
 
 class LoginPage extends StatefulWidget {
-  static ScreenScaler _screenScaler;
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -17,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController ticketNumberController = new TextEditingController();
   ScreenScaler _screenScaler;
-  
+
   @override
   void initState() {
     loginBloc.add(CheckIfUserIsAlreadyLoggedIn());
@@ -67,7 +65,15 @@ class _LoginPageState extends State<LoginPage> {
                         child: CircularProgressIndicator());
                   }
                   if (state is NetworkErrorLoginState) {
-                    return _buildForm();
+                    return Container(
+                      height: _screenScaler.getHeight(40),
+                      child: Text(
+                        state.error,
+                        style: TextStyle(
+                          fontSize: _screenScaler.getTextSize(11),
+                        ),
+                      ),
+                    );
                   }
                   if (state is NetworkBusyLoginState) {
                     return CircularProgressIndicator();
@@ -105,8 +111,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.fromLTRB(0.0, 1.0, 0.0, 16.0),
             child: TextField(
               controller: emailController,
-              style:
-                  TextStyle(fontSize: _screenScaler.getTextSize(11)),
+              style: TextStyle(fontSize: _screenScaler.getTextSize(11)),
               decoration: InputDecoration(
                 hintText: 'Enter your email address',
               ),
@@ -122,8 +127,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.fromLTRB(0.0, 1.0, 0.0, 16.0),
             child: TextField(
               controller: ticketNumberController,
-              style:
-                  TextStyle(fontSize: _screenScaler.getTextSize(11)),
+              style: TextStyle(fontSize: _screenScaler.getTextSize(11)),
               decoration: InputDecoration(
                 hintText: 'Enter your ticket number',
               ),
@@ -133,6 +137,24 @@ class _LoginPageState extends State<LoginPage> {
             width: double.infinity,
             child: RaisedButton(
               onPressed: () {
+                if (emailController.text.isEmpty) {
+                  _showDialog("Email cannot be empty!");
+                  return;
+                }
+                if (ticketNumberController.text.isEmpty) {
+                  _showDialog("Ticket Number cannot be empty!");
+                  return;
+                }
+                if (!emailController.text.contains("@")) {
+                  _showDialog("Invalid Email Address");
+                  return;
+                }
+                try {
+                  int.parse(ticketNumberController.text);
+                } catch (error) {
+                  _showDialog("Invalid Ticket Number!");
+                  return;
+                }
                 loginBloc.add(
                   AuthorizeUser(
                       emailController.text, ticketNumberController.text),
@@ -140,13 +162,35 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                 "Log In",
-                style: TextStyle(
-                    fontSize: _screenScaler.getTextSize(11)),
+                style: TextStyle(fontSize: _screenScaler.getTextSize(11)),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _showDialog(String message) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Error"),
+          content: new Text(message),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

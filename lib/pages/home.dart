@@ -1,12 +1,13 @@
 import 'package:devfest_lk_2019/pages/agenda.dart';
-import 'package:devfest_lk_2019/pages/faq.dart';
+import 'package:devfest_lk_2019/pages/moments.dart';
 import 'package:devfest_lk_2019/pages/speakers.dart';
+import 'package:devfest_lk_2019/pages/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
-  final List<Widget> screens = [AgendaPage(), SpeakersPage(), FaqPage()];
+  final List<Widget> screens = [AgendaPage(), SpeakersPage(), MomentsPage()];
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -14,9 +15,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScreenScaler _screenScaler;
-//  PageController _controller = PageController();
   int _currentIndex = 0;
-  List<String> _titleList = ["Agenda", "Speakers", "FAQs"];
+  List<String> _titleList = ["Agenda", "Speakers", "Moments"];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Container _buildBottomNavigationBar() {
     return Container(
@@ -53,8 +58,8 @@ class _HomePageState extends State<HomePage> {
                 title: Text("Speakers"),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.question_answer),
-                title: Text("FAQ"),
+                icon: Icon(Icons.dashboard),
+                title: Text("Moments"),
               ),
             ],
           ),
@@ -72,57 +77,54 @@ class _HomePageState extends State<HomePage> {
     _screenScaler = ScreenScaler()..init(context);
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(_screenScaler.getHeight(10)),
-          child: Container(
-            height: _screenScaler.getHeight(10),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  _screenScaler.getWidth(4),
-                  _screenScaler.getHeight(1.5),
-                  _screenScaler.getWidth(4),
-                  _screenScaler.getHeight(1.5)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      _titleList[_currentIndex],
-                      style: TextStyle(
-                        fontSize: _screenScaler.getTextSize(12),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    child: Icon(
-                      Icons.person_outline,
-                      color: Colors.blueAccent,
-                    ),
-                  )
-                ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(_screenScaler.getHeight(6)),
+        child: AppBar(
+          elevation: 0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+              _titleList[_currentIndex],
+              style: TextStyle(
+                fontSize: _screenScaler.getTextSize(12),
               ),
             ),
           ),
+          automaticallyImplyLeading: false,
+          centerTitle: false,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: IconButton(
+                  padding: EdgeInsets.all(0),
+                  icon: Icon(
+                    Icons.person_outline,
+                    color: Colors.blueAccent,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return UserInfoPage();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
-//        body: PageView(
-//          controller: _controller,
-//          onPageChanged: (int index) {
-//            setState(() {
-//              _currentIndex = index;
-//            });
-//          },
-//          children: <Widget>[
-//            AgendaPage(),
-//            SpeakersPage(),
-//            FaqPage(),
-//          ],
-//        ),
+      ),
       body: IndexedStack(
         index: _currentIndex,
         children: widget.screens,
       ),
-        bottomNavigationBar: _buildBottomNavigationBar(),);
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
   }
 }

@@ -1,10 +1,9 @@
+
 import 'package:devfest_lk_2019/bloc/agenda/agenda_bloc.dart';
-import 'package:devfest_lk_2019/constants/data.dart';
 import 'package:devfest_lk_2019/model/session.dart';
 import 'package:devfest_lk_2019/widgets/session_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 
 class AgendaPage extends StatefulWidget {
   AgendaPage({Key key}) : super(key: key);
@@ -19,15 +18,14 @@ class _AgendaPageState extends State<AgendaPage> {
 
   @override
   void initState() {
-    if (sessionList.isEmpty) {
-      agendaBloc.add(FetchSessionsEvent());
-    }
+    agendaBloc.add(FetchSessionsEvent());
+
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder(
       bloc: agendaBloc,
       builder: (BuildContext context, AgendaState state) {
@@ -44,6 +42,7 @@ class _AgendaPageState extends State<AgendaPage> {
           sessionList = state.sessionList;
 
           return ListView.builder(
+            shrinkWrap: true, // use it
             itemCount: sessionList.length,
             itemBuilder: (BuildContext context, int index) {
               return SessionCard(

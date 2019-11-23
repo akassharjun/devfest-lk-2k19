@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:devfest_lk_2019/model/auth_response.dart';
+import 'package:devfest_lk_2019/model/moment.dart';
 import 'package:devfest_lk_2019/model/session.dart';
 import 'package:devfest_lk_2019/model/speaker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,10 @@ abstract class Api {
   Future<List<Session>> getAllSessions();
 
   Future<List<Speaker>> getAllSpeakers();
+
+  Future<List<Moment>> getAllMoments();
+
+  Future<void> sendFeedback(String userId, String feedbackMessage);
 }
 
 class NetworkService extends Api {
@@ -32,8 +37,12 @@ class NetworkService extends Api {
       body: {'userID': ticketNumber, 'userEmail': email},
     );
     print(response.body.toString());
-    return AuthResponse.fromJson(response.body.toString());
-    return new AuthResponse();
+    if (response.statusCode == 200) {
+      return AuthResponse.fromJson(response.body.toString());
+
+    } else {
+      throw NetworkException(response.body);
+    }
   }
 
   Future<String> getToken() async {
@@ -78,6 +87,46 @@ class NetworkService extends Api {
       return speakerList;
     } else {
       throw NetworkException(response.body);
+    }
+  }
+
+  @override
+  Future<List<Moment>> getAllMoments() async {
+    var url = '$baseURL/moments';
+    var response = await http.get(
+      url,
+      headers: await _getBearerToken(),
+    );
+    if (response.statusCode == 200) {
+      List list = jsonDecode(response.body);
+      List<Moment> momentList = [];
+      for (var element in list) {
+        momentList.add(Moment.fromMap(element));
+      }
+      return momentList;
+    } else {
+      throw NetworkException(response.body);
+    }
+  }
+
+  @override
+  Future<void> sendFeedback(String userId, String feedbackMessage) async {
+    var url = '$baseURL/feedback';
+
+    print(userId);
+    print(feedbackMessage);
+
+    var response = await http.post(
+      url,
+      body: {
+        "userID": userId,
+        "message": feedbackMessage
+      },
+      headers: await _getBearerToken(),
+    );
+    if (response.statusCode == 200) {
+    } else {
+    throw NetworkException(response.body);
     }
   }
 

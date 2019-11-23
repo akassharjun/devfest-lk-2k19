@@ -1,5 +1,4 @@
 import 'package:devfest_lk_2019/bloc/speakers/speakers_bloc.dart';
-import 'package:devfest_lk_2019/constants/data.dart';
 import 'package:devfest_lk_2019/model/speaker.dart';
 import 'package:devfest_lk_2019/widgets/speaker_card.dart';
 import 'package:flutter/material.dart';

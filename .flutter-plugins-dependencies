@@ -1,1 +1,1 @@
-{"dependencyGraph":[{"name":"path_provider","dependencies":[]},{"name":"shared_preferences","dependencies":[]},{"name":"sqflite","dependencies":[]}]}
+{"dependencyGraph":[{"name":"connectivity","dependencies":[]},{"name":"flutter_local_notifications","dependencies":[]},{"name":"path_provider","dependencies":[]},{"name":"shared_preferences","dependencies":[]},{"name":"sqflite","dependencies":[]}]}

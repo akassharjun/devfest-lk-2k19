@@ -1,5 +1,4 @@
 import 'package:devfest_lk_2019/model/session.dart';
-import 'package:devfest_lk_2019/pages/faq.dart';
 import 'package:devfest_lk_2019/pages/session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
@@ -9,6 +8,7 @@ import 'tag.dart';
 
 class SessionCard extends StatelessWidget {
   final Session session;
+
   SessionCard({
     Key key,
     this.session,
@@ -39,8 +39,16 @@ class SessionCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (BuildContext context) => SessionPage(session: session,)));
+        session.data.tags != null
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => SessionPage(
+                    session: session,
+                  ),
+                ),
+              )
+            : print('');
       },
       child: Container(
         margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),

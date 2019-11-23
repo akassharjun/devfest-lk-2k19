@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:devfest_lk_2019/bloc/login/login_bloc.dart';
-import 'package:devfest_lk_2019/model/auth_response.dart';
 import 'package:devfest_lk_2019/model/session.dart';
 import 'package:devfest_lk_2019/services/network_service.dart';
 import 'package:equatable/equatable.dart';
@@ -29,7 +27,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
       NetworkService networkService = NetworkService();
       List<Session> sessions = await networkService.getAllSessions();
       yield SessionsFetchedAgendaState(sessions);
-    } catch (error, stacktrace) {
+    } catch (error) {
       // handle network call error
       NetworkException exception = error;
       yield NetworkErrorAgendaState(error: exception.cause.toString());

@@ -6,6 +6,8 @@ import 'package:flutter_screen_scaler/flutter_screen_scaler.dart';
 import 'package:flutter/src/widgets/icon.dart' as icon;
 import 'dart:io' show Platform;
 
+import '../app_colors.dart';
+
 class SpeakerPage extends StatelessWidget {
   final Speaker speaker;
   static ScreenScaler _screenScaler;
@@ -16,7 +18,7 @@ class SpeakerPage extends StatelessWidget {
     return Center(
       child: Hero(
         child: Container(
-            padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
+            padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 24.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: CachedNetworkImage(
@@ -48,21 +50,6 @@ class SpeakerPage extends StatelessWidget {
     // TODO: implement build
     _screenScaler = new ScreenScaler()..init(context);
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
-        child: AppBar(
-          leading: IconButton(
-            icon: Platform.isAndroid
-                ? icon.Icon(Icons.arrow_back)
-                : icon.Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          elevation: 0,
-        ),
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -70,6 +57,34 @@ class SpeakerPage extends StatelessWidget {
 //              mainAxisAlignment: MainAxisAlignment.center,
 //              crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              Container(
+                height: 20,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(10,0,10,0),
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: AppColors.BORDER,
+                    borderRadius: BorderRadius.circular(100),
+                    boxShadow: [
+                      new BoxShadow(
+                        color: AppColors.BACKGROUND,
+                        blurRadius: 5.0,
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    icon: Platform.isAndroid
+                        ? icon.Icon(Icons.arrow_back)
+                        : icon.Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ),
               _buildProfilePicture(speaker.details.photoUrl),
               Container(
                 width: double.infinity,
@@ -92,10 +107,11 @@ class SpeakerPage extends StatelessWidget {
                         fontWeight: FontWeight.w100,
                       ),
                     ),
+                    SizedBox(height: _screenScaler.getHeight(0.2)),
                     Text(
                       speaker.details.company,
                       style: TextStyle(
-                        fontSize: _screenScaler.getTextSize(11),
+                        fontSize: _screenScaler.getTextSize(10.5),
                         fontWeight: FontWeight.w100,
                       ),
                     ),

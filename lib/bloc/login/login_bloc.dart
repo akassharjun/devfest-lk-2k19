@@ -40,7 +40,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _mapValidationLoginCredentialsToState(
       String email, String ticketNumber) async* {
-    print("hello");
     yield NetworkBusyLoginState();
     try {
       // network call
@@ -50,20 +49,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       AuthResponse authResponse =
           await networkService.authorizeUser(email, ticketNumber);
 
-      print(authResponse.token);
-      print(authResponse.user.name);
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('bearerToken', authResponse.token);
       prefs.setString('userInfo', authResponse.user.toJson().toString());
       prefs.setBool('signedIn', true);
 
-      print("Yielding success");
       yield SuccessLoginState();
-    } catch (error, stacktrace) {
+    } catch (error) {
       // handle network call error
-      NetworkException exception = error;
-      yield NetworkErrorLoginState(error: exception.cause.toString());
+      yield NetworkErrorLoginState(error: "Invalid Credientials!");
+      await Future.delayed(const Duration(seconds: 3), () {});
+      yield UserNotLoggedInState();
     }
   }
 }

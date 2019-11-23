@@ -1,6 +1,5 @@
 part of 'speakers_bloc.dart';
 
-
 @immutable
 abstract class SpeakersState extends Equatable {
   SpeakersState([List props = const []]);

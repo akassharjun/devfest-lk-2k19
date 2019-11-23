@@ -20,23 +20,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  curved_navigation_bar: ^0.3.1 #latest version
   flutter_screen_scaler:
-  # firebase_messaging: ^6.0.1
   bloc:
   flutter_bloc:
   equatable: ^0.5.1
   intl: ^0.16.0
-  splashscreen: ^1.2.0
   shared_preferences: ^0.5.4+5
   http:
   cached_network_image: ^2.0.0-rc
-  json_api: ^2.0.3
-  dio: ^3.0.6
-  dio_flutter_transformer: ^3.0.2 # latest version
+  flutter_local_notifications:
+  flutter_staggered_grid_view: ^0.3.0
+  connectivity:
 
 dev_dependencies:
   flutter_test:
@@ -56,7 +50,6 @@ flutter:
 
   assets:
     - assets/images/devfest_logo.png
-    - assets/images/devfest_skyline.png
     - assets/images/linkedin.png
     - assets/images/twitter.png
 

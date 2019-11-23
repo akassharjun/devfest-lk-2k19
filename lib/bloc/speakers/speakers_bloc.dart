@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 part 'speakers_event.dart';
-
 part 'speakers_state.dart';
 
 class SpeakersBloc extends Bloc<SpeakersEvent, SpeakersState> {
@@ -27,7 +26,7 @@ class SpeakersBloc extends Bloc<SpeakersEvent, SpeakersState> {
       NetworkService networkService = NetworkService();
       List<Speaker> speakerList = await networkService.getAllSpeakers();
       yield FetchedSpeakerListSpeakersState(speakerList);
-    } catch (error, stacktrace) {
+    } catch (error) {
       // handle network call error
       NetworkException exception = error;
       yield NetworkErrorSpeakersState(error: exception.cause.toString());

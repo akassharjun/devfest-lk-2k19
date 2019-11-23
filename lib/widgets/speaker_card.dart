@@ -18,7 +18,6 @@ class SpeakerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _screenScaler = ScreenScaler()..init(context);
-    final Random _random = Random();
 
     return GestureDetector(
       onTap: () {

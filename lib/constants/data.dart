@@ -1,5 +1,15 @@
 class AppData {
-  
+
+  static String ml = 'https://9to5google.com/wp-content/uploads/sites/4/2019/04/google-ml-kit.png?w=1312';
+  static String firebase = 'https://www.bounteous.com/sites/default/files/styles/default/public/insights/2018-12/previews/20181214-how_campaign_attribution_works_in_google_analytics_for_firebase-website.png?itok=r1SBAPOS';
+  static String wtm = 'https://www.yovizag.com/wp-content/uploads/2019/03/web-new_women-techmark-758x474.jpg';
+  static String kotlin = 'http://www.codekul.com/blog/wp-content/uploads/2017/06/back-kotlin-android-1.jpg';
+  static String ai = 'https://www.analyticsinsight.net/wp-content/uploads/2019/10/Google-AI.jpg';
+  static String web = 'https://about.gitlab.com/images/blogimages/gitlab-blog-cover.png';
+  static String cicd = 'https://about.gitlab.com/images/ci/ci-cd-test-deploy-illustration_2x.png';
+  static String android = 'https://cdn.dribbble.com/users/68604/screenshots/2346182/android-developers-card-artwork.png';
+  static String cloud = 'https://sciencetechvideos.files.wordpress.com/2018/12/gcp.jpg';
+
   static String getUrlBySpeakerId(String speakerId) {
     List<Map> _speakers = speakerList.where((i) => i['speaker'] == speakerId).toList();
     return _speakers[0]['details']['photoUrl'];
