@@ -58,7 +58,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } catch (error) {
       // handle network call error
       yield NetworkErrorLoginState(error: "Invalid Credientials!");
-      await Future.delayed(const Duration(seconds: 3), () {});
+      await Future.delayed(const Duration(seconds: 2), () {});
       yield UserNotLoggedInState();
     }
   }
