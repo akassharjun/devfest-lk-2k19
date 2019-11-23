@@ -1,4 +1,4 @@
-package com.github.akassharjun.devfest_lk_2019;
+package org.gdgsrilanka.devfest;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
