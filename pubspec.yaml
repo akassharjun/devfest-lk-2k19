@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,6 +26,17 @@ dependencies:
   curved_navigation_bar: ^0.3.1 #latest version
   flutter_screen_scaler:
   # firebase_messaging: ^6.0.1
+  bloc:
+  flutter_bloc:
+  equatable: ^0.5.1
+  intl: ^0.16.0
+  splashscreen: ^1.2.0
+  shared_preferences: ^0.5.4+5
+  http:
+  cached_network_image: ^2.0.0-rc
+  json_api: ^2.0.3
+  dio: ^3.0.6
+  dio_flutter_transformer: ^3.0.2 # latest version
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +53,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/images/devfest_logo.png
+    - assets/images/devfest_skyline.png
+    - assets/images/linkedin.png
+    - assets/images/twitter.png
 
   fonts:
     - family: ProductSans

@@ -1,0 +1,1 @@
+{"dependencyGraph":[{"name":"path_provider","dependencies":[]},{"name":"shared_preferences","dependencies":[]},{"name":"sqflite","dependencies":[]}]}
