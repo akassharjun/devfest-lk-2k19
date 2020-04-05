@@ -4,7 +4,7 @@ The official mobile application for [DevFest Sri Lanka 2019](https://devfest19.g
 
 ## Screenshots
 
-![Screenshot](assets/app-display.jpg)
+![Screenshot](screenshots/app-display.jpg)
 
 ---
 
